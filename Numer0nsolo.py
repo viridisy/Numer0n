@@ -33,42 +33,41 @@ def printm(i):
     print("")
 
 print("Numer0n\n")
-
-key = []
-for i in range(3):
-    while True:
-        k = rannum()
-        if (not k in key):
-            key.append(k)
-            break
-
-ans = []
-while (not ans==key):
-    printm("  Guess the answer: g, Quit the game: q  ")
+while True:
+    printm("New game: n, Quit: q")
     com = input()
-    if (com == "g"):
-        eat = 0
-        bite = 0
-        while True:
-            print()
-            printm("Input your answer in three digits!")
-            ansnum=ndigint_input(3)
-            ans=[ansnum%(10**(i+1))//(10**i) for i in reversed(range(3))]
-            if(ans[0]!=ans[1] and ans[1]!=ans[2] and ans[2]!=ans[0]):
-                break
-            else:
-                printm("Each digit must be distinct!")
+    if(com=="n"):
+        key = []
         for i in range(3):
-            if ans[i]==key[i]:
-                eat=eat+1
-            elif ans[i] in key:
-                bite=bite+1
-        printm("Your answer : "+str(ans)+", "+str(eat)+" eat, "+str(bite)+" bite")
-    elif(com == "q"):
-        printm("You quit the game")
+            while True:
+                k = rannum()
+                if (not k in key):
+                    key.append(k)
+                    break
+
+        ans = []
+        while (not ans==key):
+            
+            eat = 0
+            bite = 0
+            while True:
+                print()
+                printm("Input your answer in three digits!")
+                ansnum=ndigint_input(3)
+                ans=[ansnum%(10**(i+1))//(10**i) for i in reversed(range(3))]
+                if(ans[0]!=ans[1] and ans[1]!=ans[2] and ans[2]!=ans[0]):
+                    break
+                else:
+                    printm("Each digit must be distinct!")
+            for i in range(3):
+                if ans[i]==key[i]:
+                    eat=eat+1
+                elif ans[i] in key:
+                    bite=bite+1
+            printm("Your answer : "+str(ans)+", "+str(eat)+" eat, "+str(bite)+" bite")
+
+
+        printm("you win")
+    elif(com=="q"):
+        printm("You quit")
         exit()
-    else:
-        continue
-
-
-printm("you win")
