@@ -10,17 +10,27 @@ def int_input():
             break
     return i
 
-def onedigint_input():
+def ndigint_input(n):
     while True:
         i=int_input()
-        if 0<=i<10:
+        if 10**(n-1)<=i and i<10**n:
             break
-        print("input again!")
+        print("Input "+str(n)+" digit number!")
     return i    
 
 def rannum():
     return math.floor(10*random.random())
 
+def printm(i):
+    print("")
+    for n in range(len(i)+4):
+        print("-", end="")
+    print("")
+    print("  "+i+"  ")
+    
+    for n in range(len(i)+4):
+        print("-", end="")
+    print("")
 
 print("Numer0n\n")
 
@@ -31,18 +41,34 @@ for i in range(3):
         if (not k in key):
             key.append(k)
             break
+
 ans = []
-while (not ans==key):    
-    eat = 0
-    bite = 0
-    print("input your answer")
-    ans=[onedigint_input(), onedigint_input(), onedigint_input()]
-    for i, num in enumerate(ans):
-        if ans[i]==key[i]:
-            eat=eat+1
-        elif ans[i] in key:
-            bite=bite+1
-    print("Your answer : "+str(ans)+", "+str(eat)+" eat, "+str(bite)+" bite")
+while (not ans==key):
+    printm("  Guess the answer: g, Quit the game: q  ")
+    com = input()
+    if (com == "g"):
+        eat = 0
+        bite = 0
+        while True:
+            print()
+            printm("Input your answer in three digits!")
+            ansnum=ndigint_input(3)
+            ans=[ansnum%(10**(i+1))//(10**i) for i in reversed(range(3))]
+            if(ans[0]!=ans[1] and ans[1]!=ans[2] and ans[2]!=ans[0]):
+                break
+            else:
+                printm("Each digit must be distinct!")
+        for i in range(3):
+            if ans[i]==key[i]:
+                eat=eat+1
+            elif ans[i] in key:
+                bite=bite+1
+        printm("Your answer : "+str(ans)+", "+str(eat)+" eat, "+str(bite)+" bite")
+    elif(com == "q"):
+        printm("You quit the game")
+        exit()
+    else:
+        continue
 
 
-print("you win")
+printm("you win")
