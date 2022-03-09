@@ -1,5 +1,8 @@
+from __future__ import print_function, unicode_literals
+from PyInquirer import prompt, Separator
 import random
 import math
+
 
 def int_input():
     print()
@@ -34,9 +37,18 @@ def printm(i):
 
 print("Numer0n\n")
 while True:
-    printm("New game: n, Quit: q")
-    com = input()
-    if(com=="n"):
+    commands = [
+        {
+            "type": "list",
+            "message": "Input next command",
+            "choices": [
+                "New game", 
+                "Quit"
+            ]
+        }
+    ]
+    com = prompt.prompt(commands)
+    if(com=="New game"):
         key = []
         for i in range(3):
             while True:
@@ -68,6 +80,6 @@ while True:
 
 
         printm("you win")
-    elif(com=="q"):
+    elif(com=="Quit"):
         printm("You quit")
         exit()
